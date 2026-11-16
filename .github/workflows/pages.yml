@@ -23,6 +23,9 @@ jobs:
   build:
     name: pages-build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,6 +35,7 @@ jobs:
         run: |
           mkdir -p _site
           cp report/report.html _site/index.html
+          cp report/report.pdf _site/
           cp report/beginners_guide.html _site/beginners-guide.html
           cp report/theme-base.css report/project-theme.css _site/
       - run: npx --yes http-server _site -p 4173 >/tmp/pages-server.log 2>&1 & npx --yes wait-on http://127.0.0.1:4173
